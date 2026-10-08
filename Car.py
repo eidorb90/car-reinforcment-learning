@@ -68,7 +68,7 @@ class Car:
         pygame.draw.rect(
             self.get_surface(),
             self.get_color(),
-            (0, 0, 25, 15)
+            (0, 0, 15, 10)
         )
 
         self.set_current_rect(rect_surface)
@@ -84,7 +84,7 @@ class Car:
 
     def crash(self):
         self.set_is_alive(False)
-        self.set_score(self.get_score() - 5)
+        self.set_score(self.get_score() - 50)
         self.set_current_speed(0)
 
     # ---------------------------------------------------------
@@ -159,7 +159,7 @@ class Car:
     # ---------------------------------------------------------
     # DRAW
     # ---------------------------------------------------------
-    def draw(self, surface, map_mask):
+    def draw(self, surface, map_mask, generation):
         rotated_surface = pygame.transform.rotate(
             self.get_surface(),
             self.get_angle()
@@ -185,13 +185,13 @@ class Car:
             new_rect
         )
 
-        self.update_score(map_mask)
+        self.update_score(map_mask, generation)
 
     # ---------------------------------------------------------
     # SCORE
     # ---------------------------------------------------------
 
-    def update_score(self, map_mask):
+    def update_score(self, map_mask, generation):
         ray_values = self.get_ray_values(map_mask)
 
         for ray_value in ray_values:
@@ -237,17 +237,19 @@ class Car:
             self.set_score(
                 self.get_score() - 0.01
             )
+        if generation <= 200:
+            if abs(current_speed) < 1:
+                self.set_score(self.get_score() + -1.01)
 
-        if abs(current_speed) > 3:
-            self.set_score(
-                self.get_score() + 0.1
-            )
+            elif abs(current_speed) < 3:
+                self.set_score(self.get_score() + .1)
+        else:
 
-        elif abs(current_speed) > 1:
-            self.set_score(
-                self.get_score() + 0.01
-            )
+            if abs(current_speed) > 3:
+                self.set_score(self.get_score() + .1)
 
+            elif abs(current_speed) > 1:
+                self.set_score(self.get_score() + -1.01)
     # ---------------------------------------------------------
     # KEYBOARD INPUT
     # ---------------------------------------------------------

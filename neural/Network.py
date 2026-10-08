@@ -1,6 +1,7 @@
 from neural.Layer import Layer
 import random
 import math
+import pickle
 
 from neural.Neuron import Neuron
 
@@ -46,6 +47,10 @@ class Network:
                 neuron.set_bias(random.uniform(0.01, 0.1))
                 for connection in neuron.get_in_connections():
                     connection.set_weight(random.uniform(-limit, limit))
+
+    def save_network(self, filename="network.pkl"):
+        with open(filename, "wb") as file:
+            pickle.dump(self, file)
 
     def connect_layers(self):
         prev_layer = None

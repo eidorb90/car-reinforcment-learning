@@ -5,10 +5,12 @@ class Map:
     __surface = None
     __name = None
     __mask = None
+    __checkpoints = None
 
-    def __init__(self, name, surface_location):
+    def __init__(self, name, surface_location, checkpoints):
         self.set_name(name)
         self.set_surface_location(surface_location)
+        self.set_checkpoints(checkpoints)
         self.init()
 
     # Helpers
@@ -32,6 +34,9 @@ class Map:
     def get_surface(self):
         return self.__surface
 
+    def get_checkpoints(self):
+        return self.__checkpoints
+
     # Setters
     def set_surface_location(self, location):
         self.__surface_location = location
@@ -44,4 +49,7 @@ class Map:
 
     def set_surface(self, surface):
         self.__surface = surface
+        
+    def set_checkpoints(self, checkpoints):
+        self.__checkpoints = checkpoints
 

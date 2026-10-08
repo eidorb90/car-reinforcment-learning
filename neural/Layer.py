@@ -17,8 +17,9 @@ class Layer:
         self.init(size)
 
     # Helpers
-    def add_neuron(self):
-        neuron = Neuron(is_input_neuron=self.get_is_input_layer())
+    def add_neuron(self, neuron=None):
+        if neuron is None:
+            neuron = Neuron(is_input_neuron=self.get_is_input_layer())
         self.get_neurons().append(neuron)
 
     def init(self, size):
